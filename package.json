@@ -1,0 +1,27 @@
+{
+  "name": "Koa-cms",
+  "version": "1.0.0",
+  "description": "Koa+Mongodb CMS项目",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poisonIt/Koa-cms.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/poisonIt/Koa-cms/issues"
+  },
+  "homepage": "https://github.com/poisonIt/Koa-cms#readme",
+  "dependencies": {
+    "art-template": "^4.13.2",
+    "koa": "^2.6.2",
+    "koa-art-template": "^1.1.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0"
+  }
+}
