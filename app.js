@@ -7,10 +7,14 @@ let Koa = require('koa'),
   render = require('koa-art-template'),
   path = require('path'),
   static = require('koa-static'),
+  session = require('koa-session'),
+  bodyParser = require('koa-bodyparser'),
   router = require('koa-router')();
 
 //实例化
 let app = new Koa();
+
+
 
 //配置模板引擎
 render(app, {
@@ -23,6 +27,27 @@ render(app, {
 //配置静态资源
 
 app.use(static(__dirname + '/public'));
+
+//配置session的中间件
+app.keys = ['some secret hurr'];
+
+const CONFIG = {
+
+  key: 'koa:sess',
+  maxAge: 864000,
+  overwrite: true,
+  httpOnly: true,
+  signed: true,
+  rolling: true,
+  renew: false
+
+};
+
+
+app.use(session(CONFIG, app))
+
+//配置post提交数据中间件
+app.use(bodyParser());
 
 
 //引入模块

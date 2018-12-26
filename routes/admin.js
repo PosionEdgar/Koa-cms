@@ -4,6 +4,7 @@
 
 
 let router = require('koa-router')();
+let url = require('url');
 
 
 let login = require('./admin/login'),
@@ -16,17 +17,36 @@ router.use(async (ctx, next) => {
   // console.log(ctx.request.header.host);
   //模板引擎配置全部的变量
 
-  ctx.state.__HOST__ = 'http://' + ctx.request.header.host
+  ctx.state.__HOST__ = 'http://' + ctx.request.header.host;
 
-  await next();
 
+  let pathname = url.parse(ctx.request.url).pathname;
+
+  //权限判断
+  if (ctx.session.userInfo) {
+
+    await next();
+
+  } else {
+
+    //没有登录返回登录页面
+    if (pathname == '/admin/login' || pathname == '/admin/login/dologin' || pathname == '/admin/login/code') {
+
+      await next();
+
+    } else {
+
+      ctx.redirect('/admin/login')
+    }
+
+  }
 });
 
 
 
 router.get('/', async (ctx) => {
 
-  ctx.body = "后台管理系统"
+  await ctx.render('admin/index')
 
 });
 
