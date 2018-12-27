@@ -11,6 +11,35 @@ let tools = {
 
     return md5(str)
 
+  },
+  cateTolList(data) {
+
+    //获取一级分类
+
+    let firstArr = [];
+
+    for (let i = 0; i < data.length; i ++) {
+
+      if (data[i].pid === '0') {
+        firstArr.push(data[i]); //一级分类
+
+      }
+
+    }
+    //获取二级分类
+    for (let i = 0; i < firstArr.length; i ++) {
+      firstArr[i].list = [];
+      //遍历所有的数据 看哪个数据的pid等于当前的数据id
+      for (let j = 0; j < data.length; j ++) {
+
+
+        if (firstArr[i]._id == data[j].pid) {
+          firstArr[i].list.push(data[j])
+        }
+      }
+
+    }
+    return firstArr;
   }
 
 };

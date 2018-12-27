@@ -38,6 +38,13 @@ router.post('/dologin', async (ctx) => {
 
       ctx.session.userInfo = result[0];
 
+
+      console.log(result[0]._id);
+      //更新用户表改变用户登陆的时间
+      await Db.update('admin', {"_id": Db.ObjectID(result[0]._id)}, {
+        "last_time": new Date()
+      });
+
       ctx.redirect(ctx.state.__HOST__+'/admin')
 
     } else {
@@ -88,6 +95,14 @@ router.get('/code', async (ctx) => {
 
   ctx.response.type = 'image/svg+xml';
   ctx.body = captcha.data;
+
+});
+
+router.get('/loginOut', async (ctx) => {
+
+  ctx.session.userInfo = null;
+
+  ctx.redirect(ctx.state.__HOST__ + '/admin/login')
 
 });
 

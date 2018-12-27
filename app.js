@@ -5,15 +5,20 @@
 
 let Koa = require('koa'),
   render = require('koa-art-template'),
+  sd = require('silly-datetime'),
   path = require('path'),
   static = require('koa-static'),
   session = require('koa-session'),
   bodyParser = require('koa-bodyparser'),
+  jsonp = require('koa-jsonp'),
   router = require('koa-router')();
 
 //实例化
 let app = new Koa();
 
+
+//配置jsonp的中间件
+app.use(jsonp());
 
 
 //配置模板引擎
@@ -21,7 +26,10 @@ render(app, {
 
   root: path.join(__dirname, 'views'),
   extname: '.html',
-  debug: process.env.NODE_ENV !== 'production'
+  debug: process.env.NODE_ENV !== 'production',
+  dateFormat:dateFormat = function (value) {
+    return sd.format(value,'YYYY-MM-DD HH:mm')
+  }
 
 });
 //配置静态资源

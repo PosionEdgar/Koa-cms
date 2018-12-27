@@ -43,7 +43,7 @@
 
 
 
-    <li>
+    <li {{if G.url[1]=="manage"}} class="active open" {{/if}}>
       <a href="#" class="dropdown-toggle">
         <i class="icon-user-md"></i>
         <span class="menu-text"> 管理员管理 </span>
@@ -52,15 +52,15 @@
       </a>
 
       <ul class="submenu">
-        <li>
-          <a href="{{__ROOT__}}/admin/user">
+        <li {{if !G.url[2]}} class="active" {{/if}}>
+          <a href="{{__ROOT__}}/admin/manage">
             <i class="icon-double-angle-right"></i>
             管理员列表
           </a>
         </li>
 
-        <li>
-          <a href="{{__ROOT__}}/admin/user/add">
+        <li  !{{if G.url[2]=="add"}} class="active" {{/if}}>
+          <a href="{{__ROOT__}}/admin/manage/add">
             <i class="icon-double-angle-right"></i>
             增加管理员
           </a>
@@ -70,7 +70,7 @@
       </ul>
     </li>
 
-    <li>
+    <li {{if G.url[1]=="articlecate"}} class="active open" {{/if}}>
       <a href="#" class="dropdown-toggle">
         <i class="icon-list"></i>
         <span class="menu-text"> 分类管理 </span>
@@ -79,15 +79,15 @@
       </a>
 
       <ul class="submenu">
-        <li>
-          <a href="tables.html">
+        <li {{if !G.url[2]}} class="active" {{/if}}>
+          <a href="{{__HOST__}}/admin/articlecate">
             <i class="icon-double-angle-right"></i>
             分类列表
           </a>
         </li>
 
-        <li>
-          <a href="jqgrid.html">
+        <li {{if G.url[2]=="add"}} class="active" {{/if}}>
+          <a href="{{__HOST__}}/admin/articlecate/add">
             <i class="icon-double-angle-right"></i>
             增加分类
           </a>
@@ -95,7 +95,7 @@
       </ul>
     </li>
 
-    <li>
+    <li  {{if G.url[1]=="article"}} class="active open" {{/if}}>
       <a href="#" class="dropdown-toggle">
         <i class="icon-edit"></i>
         <span class="menu-text"> 内容管理 </span>
@@ -104,15 +104,15 @@
       </a>
 
       <ul class="submenu">
-        <li>
-          <a href="form-elements.html">
+        <li {{if !G.url[2]}} class="active" {{/if}}>
+          <a href="{{__HOST__}}/admin/article">
             <i class="icon-double-angle-right"></i>
             内容列表
           </a>
         </li>
 
-        <li>
-          <a href="form-wizard.html">
+        <li  {{if G.url[2]=="add"}} class="active" {{/if}}>
+          <a href="{{__HOST__}}/admin/article/add">
             <i class="icon-double-angle-right"></i>
             增加内容
           </a>

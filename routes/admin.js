@@ -8,7 +8,12 @@ let url = require('url');
 
 
 let login = require('./admin/login'),
-  user = require('./admin/user');
+  index = require('./admin/index'),
+  user = require('./admin/user'),
+  manage = require('./admin/manage'),
+  articlecate = require('./admin/articlecate'),
+  article = require('./admin/article');
+
 
 //配置中间件、获取Url的地址
 
@@ -20,7 +25,18 @@ router.use(async (ctx, next) => {
   ctx.state.__HOST__ = 'http://' + ctx.request.header.host;
 
 
-  let pathname = url.parse(ctx.request.url).pathname;
+  let pathname = url.parse(ctx.request.url).pathname.substring(1);
+
+  var splitUrl = pathname.split('/');
+
+
+  //配置全局信息
+  ctx.state.G = {
+    url: splitUrl,
+    userInfo: ctx.session.userInfo,
+    prevPage: ctx.request.header['referer']  /*上一页的地址*/
+  };
+
 
   //权限判断
   if (ctx.session.userInfo) {
@@ -30,7 +46,7 @@ router.use(async (ctx, next) => {
   } else {
 
     //没有登录返回登录页面
-    if (pathname == '/admin/login' || pathname == '/admin/login/dologin' || pathname == '/admin/login/code') {
+    if (pathname == 'admin/login' || pathname == 'admin/login/dologin' || pathname == 'admin/login/code') {
 
       await next();
 
@@ -44,14 +60,26 @@ router.use(async (ctx, next) => {
 
 
 
+
+
+
+
 router.get('/', async (ctx) => {
 
   await ctx.render('admin/index')
 
 });
+//后台的首页
+router.use(index);
 
 router.use('/login', login);
 
 router.use('/user', user);
+
+router.use('/manage', manage);
+
+router.use('/articlecate',articlecate);
+
+router.use('/article',article);
 
 module.exports = router.routes();

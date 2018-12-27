@@ -50,7 +50,7 @@
 
 						<div class="page-header">
 							<h1>
-								列表								
+                分类列表
 							</h1>
 						</div><!-- /.page-header -->
 
@@ -59,138 +59,94 @@
 						<!--表格-->
 
 						<div class="table-responsive">
-							<table id="sample-table-1" class="table table-striped table-bordered table-hover center">
+							<table id="sample-table-1" class="table table-striped table-bordered table-hover left">
 								<thead>
 									<tr>
-										<th class="center">
-											<label>
-												<input type="checkbox" class="ace">
-												<span class="lbl"></span>
-											</label>
-										</th>
-										<th class="center">管理员</th>
+
+										<th class="left">分类列表</th>
 
 
-
-										<th class="center">
-											<i class="icon-time bigger-110 hidden-480"></i>
-											增加时间
-										</th>
 										<th class="center">状态</th>
 
-										<th width="80px;" class="center">操作</th>
+										<th width="120px;" class="center">操作</th>
 									</tr>
 								</thead>
 
 								<tbody>
+                {{each result}}
 									<tr class="">
 
-
 										<td>
-											阿里内部的nodejs框架就是基于Koa
+											{{$value.title}}
 										</td>
 
-										<td>Feb 12</td>
-
 										<td class="hidden-480">
-												<button class="btn btn-xs btn-success">
-													<i class="icon-ok bigger-120 success"></i>
-												</button>
+												{{if $value.status==1}}
+                          <img src="{{__HOST__}}/admin/images/yes.gif" onclick="app.toggle(this,'articlecate', 'status', '{{@$value._id}}')">
+                        {{else}}
+                          <img src="{{__HOST__}}/admin/images/no.gif" onclick="app.toggle(this,'articlecate', 'status', '{{@$value._id}}')">
+                        {{/if}}
 										</td>
 
 										<td>
 											<div class="visible-md visible-lg hidden-sm hidden-xs btn-group center">
-												
 
-												<button class="btn btn-xs btn-info">
-													<i class="icon-edit bigger-120"></i>
-												</button>
-												&nbsp;
-												<button class="btn btn-xs btn-danger">
-													<i class="icon-trash bigger-120"></i>
-												</button>
+
+                        <a href="{{__HOST__}}/admin/articlecate/edit?id={{@$value._id}}">
+                          <button class="btn btn-xs btn-info" >
+                            <i class="icon-edit bigger-120"></i>
+                          </button>
+                        </a>
+
+                        <a class="delete" href="{{__HOST__}}/admin/delete?collection=articlecate&id={{@$value._id}}">
+                          <button class="btn btn-xs btn-danger">
+                            <i class="icon-trash bigger-120"></i>
+                          </button>
+                        </a>
 
 											</div>
 
 										</td>
 									</tr>
+                 {{each $value.list}}
+                      <tr class="">
 
-									<tr class="">
-										<td class="center">
-											<label>
-												<input type="checkbox" class="ace">
-												<span class="lbl"></span>
-											</label>
-										</td>
+                        <td>
+                          -------{{$value.title}}
+                        </td>
 
-										<td>
-											Font Awesome,一套绝佳的图标字体库和CSS框架
-										</td>
-										<td>$45</td>
-										<td class="hidden-480">3,330</td>
-										<td>Feb 12</td>
+                        <td class="hidden-480">
+                          {{if $value.status==1}}
+                          <img src="{{__HOST__}}/admin/images/yes.gif" onclick="app.toggle(this,'articlecate', 'status', '{{@$value._id}}')">
+                          {{else}}
+                          <img src="{{__HOST__}}/admin/images/no.gif" onclick="app.toggle(this,'articlecate', 'status', '{{@$value._id}}')">
+                          {{/if}}
+                        </td>
 
-										<td class="hidden-480">
-												<button class="btn btn-xs btn-success">
-													<i class="icon-ok bigger-120"></i>
-												</button>
-										</td>
-
-										<td>
-											<div class="visible-md visible-lg hidden-sm hidden-xs btn-group center">
-												
-
-												<button class="btn btn-xs btn-info">
-													<i class="icon-edit bigger-120"></i>
-												</button>
-												&nbsp;
-												<button class="btn btn-xs btn-danger">
-													<i class="icon-trash bigger-120"></i>
-												</button>
-
-											</div>
-
-										</td>
-									</tr>
+                        <td>
+                          <div class="visible-md visible-lg hidden-sm hidden-xs btn-group center">
 
 
-									<tr class="">
-										<td class="center">
-											<label>
-												<input type="checkbox" class="ace">
-												<span class="lbl"></span>
-											</label>
-										</td>
+                            <a href="{{__HOST__}}/admin/articlecate/edit?id={{@$value._id}}">
+                              <button class="btn btn-xs btn-info" >
+                                <i class="icon-edit bigger-120"></i>
+                              </button>
+                            </a>
 
-										<td>
-											Koa是Express原班人马打造，号称下一代web框架
-										</td>
-										<td>$45</td>
-										<td class="hidden-480">3,330</td>
-										<td>Feb 12</td>
+                            <a class="delete"  href="{{__HOST__}}/admin/delete?collection=articlecate&id={{@$value._id}}">
+                              <button class="btn btn-xs btn-danger">
+                                <i class="icon-trash bigger-120"></i>
+                              </button>
+                            </a>
 
-										<td class="hidden-480">
-												<button class="btn btn-xs btn-success">
-													<i class="icon-ok bigger-120"></i>
-												</button>
-										</td>
+                          </div>
 
-										<td>
-											<div class="visible-md visible-lg hidden-sm hidden-xs btn-group center">
-												
+                        </td>
+                      </tr>
 
-												<button class="btn btn-xs btn-info">
-													<i class="icon-edit bigger-120"></i>
-												</button>
-												&nbsp;
-												<button class="btn btn-xs btn-danger">
-													<i class="icon-trash bigger-120"></i>
-												</button>
+                  {{/each}}
 
-											</div>
-
-										</td>
-									</tr>
+                {{/each}}
 
 
 								</tbody>
