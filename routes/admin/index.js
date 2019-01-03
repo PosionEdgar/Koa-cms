@@ -62,5 +62,24 @@ router.get('/delete', async (ctx) => {
 
 });
 
+router.get('/changeSort', async (ctx) => {
+
+  let collectionName = ctx.query.collectionName,
+    id = ctx.query.id,
+    value = ctx.query.value;
+
+  //更新的数据
+  let json = {
+    sort:value
+  };
+
+  let result = await Db.update(collectionName, {'_id':Db.ObjectID(id)},json)
+  if (result) {
+    ctx.body = {"message":"更新成功","success":true}
+  } else {
+    ctx.body = {"message":"更新失败","success":false}
+  }
+});
+
 
 module.exports = router.routes();

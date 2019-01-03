@@ -9,9 +9,14 @@ const tools = require('../../model/tools');
 
 router.get('/', async (ctx) => {
 
+  let page = ctx.query.page || 1;
+
+  let pageSize = 3;
 
 
-  var result = await Db.find('admin', {});
+  var result = await Db.find('admin', {}, {}, {
+    page, pageSize
+  });
 
   await ctx.render('admin/manage/list', {
     list: result

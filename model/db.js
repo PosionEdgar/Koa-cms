@@ -63,13 +63,47 @@ class Db {
 
   }
 
-  find (collectionName, json) {
+  find (collectionName, json1, json2, json3) {
+
+    if (arguments.length === 2) {
+
+      var attr = {},
+        slipNum = 0,
+        pageSize = 0;
+
+    } else if (arguments.length === 3) {
+
+      var attr = json2,
+        slipNum = 0,
+        pageSize = 0;
+
+    }else if (arguments.length === 4) {
+
+      var attr = json2,
+        page = json3.page || 1,
+        pageSize = json3.pageSize || 20,
+        slipNum =  (page - 1) * pageSize;
+
+      if(json3.sortJson) {
+
+        var sortJson = json3.sortJson
+      } else {
+
+        var sortJson = {}
+      }
+
+
+    } else {
+      console.log('参数传入错误');
+    }
 
     return new Promise((resolve, reject) => {
 
       this.connect().then((db) => {
 
-        let result = db.collection(collectionName).find(json);
+        // let result = db.collection(collectionName).find(json);
+
+        let result = db.collection(collectionName).find(json1, {fields:attr}).skip(slipNum).limit(pageSize).sort(sortJson);
 
         result.toArray((err, docs) => {
 
@@ -174,6 +208,20 @@ class Db {
 
     return new ObjectId(id);
 
+  }
+
+  //统计数量的方法
+  count(collectionName, json) {
+    return new Promise((resolve, reject) => {
+
+      this.connect().then((db) => {
+       let result = db.collection(collectionName).count(json)
+        result.then((count) => {
+         resolve(count)
+        })
+      })
+
+    })
   }
 
 }

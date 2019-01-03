@@ -4,7 +4,8 @@
 
 
 let router = require('koa-router')();
-let url = require('url');
+let ueditor= require('koa2-ueditor'),
+  url = require('url');
 
 
 let login = require('./admin/login'),
@@ -12,7 +13,11 @@ let login = require('./admin/login'),
   user = require('./admin/user'),
   manage = require('./admin/manage'),
   articlecate = require('./admin/articlecate'),
-  article = require('./admin/article');
+  focus = require('./admin/focus'),
+  article = require('./admin/article'),
+  link = require('./admin/link'),
+  nav = require('./admin/nav'),
+  setting = require('./admin/setting');
 
 
 //配置中间件、获取Url的地址
@@ -81,5 +86,19 @@ router.use('/manage', manage);
 router.use('/articlecate',articlecate);
 
 router.use('/article',article);
+
+router.use('/focus', focus);
+
+router.use('/link', link);
+
+router.use('/nav', nav);
+
+router.use('/setting', setting);
+
+router.all('/editor/controller', ueditor(['public', {
+  "imageAllowFiles": [".png", ".jpg", ".jpeg"],
+  "imagePathFormat": "/upload/ueditor/image/{yyyy}{mm}{dd}/{filename}" //保存原文件名
+}]));
+
 
 module.exports = router.routes();

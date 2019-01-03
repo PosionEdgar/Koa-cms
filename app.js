@@ -32,6 +32,9 @@ render(app, {
   }
 
 });
+
+//配置根目录中间件
+// app.use(static('.')); 不安全
 //配置静态资源
 
 app.use(static(__dirname + '/public'));
@@ -52,7 +55,7 @@ const CONFIG = {
 };
 
 
-app.use(session(CONFIG, app))
+app.use(session(CONFIG, app));
 
 //配置post提交数据中间件
 app.use(bodyParser());
