@@ -33,7 +33,7 @@ let tools = {
       firstArr[i].list = [];
       //遍历所有的数据 看哪个数据的pid等于当前的数据id
       for (let j = 0; j < data.length; j ++) {
-        if (firstArr[i]._id === data[j].pid) {
+        if (firstArr[i]._id == data[j].pid) {
           firstArr[i].list.push(data[j])
         }
       }

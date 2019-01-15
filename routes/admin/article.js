@@ -24,7 +24,7 @@ router.get('/', async (ctx) => {
 
   let page = ctx.query.page || 1;
 
-  let pageSize = 3;
+  let pageSize = 12;
 
   let result = await Db.find('article',{}, {}, {
     page, pageSize, sortJson:{
@@ -77,7 +77,9 @@ router.post('/doAdd',upload.single('img_url'), async (ctx) => {
     keywords = ctx.req.body.keywords,
     description = ctx.req.body.description || '',
     add_time = tools.getTime();
-    content = ctx.req.body.editorValue || '';
+    content = ctx.req.body.content || '';
+
+
 
   let img_url = ctx.req.file ? ctx.req.file.path.substr(7) : '';
 
@@ -128,7 +130,7 @@ router.post('/doEdit', upload.single('img_url'),  async (ctx, next) => {
     keywords = ctx.req.body.keywords,
     description = ctx.req.body.description || '',
     img_url = ctx.req.file ? ctx.req.file.path.substr(7) : '',
-    content = ctx.req.body.editorValue || '';
+    content = ctx.req.body.content || '';
 
   if (img_url){
     var json = {

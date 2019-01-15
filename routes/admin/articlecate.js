@@ -11,6 +11,7 @@ router.get('/', async (ctx) => {
 
 
 
+
   let result = tools.cateTolList(data);
 
 
@@ -25,7 +26,6 @@ router.get('/add', async (ctx) => {
   //获取一级分类
   let result = await Db.find('articlecate', {'pid':'0'});
 
-  // console.log(result);
 
   ctx.render('admin/articlecate/add', {
     result
@@ -62,7 +62,7 @@ router.get('/edit', async (ctx) => {
 
 router.post('/doEdit', async (ctx) => {
 
-  console.log(ctx.request.body);
+
 
   let id = ctx.request.body.id,
     title = ctx.request.body.title,
@@ -72,7 +72,7 @@ router.post('/doEdit', async (ctx) => {
     description = ctx.request.body.description;
 
   let result = await Db.update('articlecate', {'_id':Db.ObjectID(id)},{
-    title,pid,keywords,status,descriptionn
+    title,pid,keywords,status,description
   });
 
   ctx.redirect(ctx.state.__HOST__+'/admin/articlecate')

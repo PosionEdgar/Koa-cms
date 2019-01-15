@@ -11,6 +11,7 @@ let Koa = require('koa'),
   session = require('koa-session'),
   bodyParser = require('koa-bodyparser'),
   jsonp = require('koa-jsonp'),
+  cors = require('koa2-cors'),
   router = require('koa-router')();
 
 //实例化
@@ -19,7 +20,8 @@ let app = new Koa();
 
 //配置jsonp的中间件
 app.use(jsonp());
-
+//配置后台允许跨域
+app.use(cors());
 
 //配置模板引擎
 render(app, {
